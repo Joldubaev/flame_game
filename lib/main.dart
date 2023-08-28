@@ -34,7 +34,7 @@ class MyGame extends FlameGame with HasTappables {
     const textBoxHeight = 100;
 
     // initialize flame audio background music
-    FlameAudio.bgm.initialize();
+    // FlameAudio.bgm.initialize();
 
     // setup background2
     background2
@@ -67,6 +67,7 @@ class MyGame extends FlameGame with HasTappables {
       ..size = buttonSize
       ..position =
           Vector2(size[0] - buttonSize[0] - 10, size[1] - buttonSize[1] - 10);
+    // add(dialogButton);
   }
 
   @override
@@ -114,16 +115,19 @@ class MyGame extends FlameGame with HasTappables {
       case 2:
         dialogTextPaint.render(canvas, 'Ken: I must fight for our village.',
             Vector2(10, size[1] - 100.0));
+        // add(dialogButton);
         break;
       case 3:
         dialogTextPaint.render(canvas, 'Keiko: What about the baby?',
             Vector2(10, size[1] - 100.0));
-        add(dialogButton);
+
         break;
     }
     switch (dialogButton.scene2Level) {
       case 1:
         sceneLevel = 2;
+
+        // dialogButton.scene2Level = 2;
         canvas.drawRect(Rect.fromLTWH(0, size[1] - 100, size[0] - 60, 100),
             Paint()..color = Colors.black);
         dialogTextPaint.render(canvas, 'Ken: Child?  I did not know',
@@ -142,12 +146,14 @@ class MyGame extends FlameGame with HasTappables {
         }
         break;
       case 2:
+        // dialogButton.scene2Level = 0;
         canvas.drawRect(Rect.fromLTWH(0, size[1] - 100, size[0] - 60, 100),
             Paint()..color = Colors.black);
         dialogTextPaint.render(canvas, 'Keiko: Our child.  Our future.',
             Vector2(10, size[1] - 100.0));
         break;
       case 3:
+        // dialogButton.scene2Level = 0;
         canvas.drawRect(Rect.fromLTWH(0, size[1] - 100, size[0] - 60, 100),
             Paint()..color = Colors.black);
         dialogTextPaint.render(canvas, 'Ken: My future will be through you.',
@@ -160,10 +166,10 @@ class MyGame extends FlameGame with HasTappables {
 class DialogButton extends SpriteComponent with Tappable {
   int scene2Level = 0;
   @override
-  bool onTapDown(TapDownInfo event) {
+  bool onTapDown(TapDownInfo info) {
     try {
       print('we will move to the next screen');
-      scene2Level++;
+      scene2Level += 1;
       return true;
     } catch (error) {
       print(error);
